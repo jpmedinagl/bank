@@ -1,0 +1,10 @@
+User Stories:
+- if there is no existing account, create an existing account for the User and give them $200 for creating an
+account
+- if there is an existing account, I want to be able to check my balances, 'checking', 'savings', 'investments' ?
+- there should be two databases, one with the username, passwords, and ids of the users, another for the bank
+information related to each user
+- users should be allowed to add money to accounts
+
+Extra:
+- a third database will keep track of when users are logging into their banks and changing things within their accounts
