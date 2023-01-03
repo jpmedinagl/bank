@@ -50,3 +50,10 @@ def get_all_users():
         ]
 
     return users
+
+
+def delete_user(username):
+    with DatabaseConnection(user_database) as connection:
+        cursor = connection.cursor()
+
+        cursor.execute('DELETE FROM users WHERE username=?', (username,))

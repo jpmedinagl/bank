@@ -14,7 +14,6 @@ class DatabaseConnection:
         if exc_type or exc_val or exc_tb:
             self.connection.close()
             print('The database operation failed, please try again.')
-            raise
             return True
         else:
             self.connection.commit()

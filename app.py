@@ -84,10 +84,33 @@ def user_list_balance():
     pass
 
 
+def prompt_delete_user():
+    username = input('Enter username you would like to delete: ')
+
+    user_in = _user_in_database(username)
+
+    if user_in:
+        database.delete_user(username)
+        print(f"{username} was deleted.")
+    else:
+        print(f"{username} not in database")
+
+
+def _user_in_database(username):
+    users = database.get_all_users()
+
+    for user in users:
+        if username in user['user'].username:
+            return True
+    else:
+        return False
+
+
 selection_1 = {
     'e': prompt_existing_user,
     'c': create_user_account,
-    'l': list_all_users
+    'l': list_all_users,
+    'd': prompt_delete_user
 }
 
 selection_2 = {
