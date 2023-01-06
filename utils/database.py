@@ -1,12 +1,15 @@
 from utils.database_connection import DatabaseConnection
 from utils.user import User
 from typing import List
+import os
 
-user_database = 'users.db'
-data_database = 'data.db'
+database = os.path.dirname(os.path.abspath('app.py')) + '/databases'
+user_database = database + '/users.db'
+data_database = database + '/data.db'
 
 
 def create_bank_tables() -> None:
+    os.makedirs(database)
     with DatabaseConnection(user_database) as connection:
         cursor = connection.cursor()
 
