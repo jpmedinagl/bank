@@ -27,20 +27,19 @@ def menu_1():
             selected_function = selection_1[user_input_1]
             user = selected_function()
             if user:
-                menu_2()
+                menu_2(user)
         else:
             print(f"Unknown command '{user_input_1}'. Please try again.")
 
         user_input_1 = input(MENU_1)
 
 
-def menu_2():
-
+def menu_2(user: User):
     user_input_2 = input(MENU_2)
     while user_input_2 != 'q':
         if user_input_2 in selection_2:
             selected_function = selection_2[user_input_2]
-            selected_function()
+            selected_function(user)
         else:
             print(f"Unknown command '{user_input_2}'. Please try again.")
 
@@ -76,11 +75,14 @@ def list_all_users():
         print(f"{user['id']}. username: {user['user'].username}, password: {user['user'].password}")
 
 
-def user_add_to_account():
-    pass
+def user_add_to_account(user: User):
+    account = input('Enter the account: ')
+    amount = input('Input the amount of money: ')
+
+    database.add_money(user, account, amount)
 
 
-def user_list_balance():
+def user_list_balance(user: User):
     pass
 
 

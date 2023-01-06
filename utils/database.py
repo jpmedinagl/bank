@@ -9,7 +9,11 @@ data_database = database + '/data.db'
 
 
 def create_bank_tables() -> None:
-    os.makedirs(database)
+    try:
+        os.makedirs(database)
+    except FileExistsError:
+        pass
+
     with DatabaseConnection(user_database) as connection:
         cursor = connection.cursor()
 
@@ -42,6 +46,11 @@ def create_user(user: User):
 
         cursor.execute(f"INSERT INTO users (id, username, password) VALUES(NULL, ?, ?)", (user.username, user.password))
 
+    with DatabaseConnection(data_database) as connection:
+        cursor = connection.cursor()
+
+        cursor.execute(f"INSERT INTO users (id, checking, savings, investments) VALUES (NULL, 0, 0, 0)")
+
 
 def get_all_users():
     with DatabaseConnection(user_database) as connection:
@@ -55,8 +64,16 @@ def get_all_users():
     return users
 
 
-def delete_user(username):
+def delete_user(username: str) -> None:
     with DatabaseConnection(user_database) as connection:
         cursor = connection.cursor()
 
         cursor.execute('DELETE FROM users WHERE username=?', (username,))
+
+
+def add_money(user: User, account: str, amount: str) -> None:
+    # need to get the user row
+    with DatabaseConnection(data_database) as connection:
+        cursor = connection.cursor()
+
+        cursor.execute(f'UPDATE data set ', (account, amount))
